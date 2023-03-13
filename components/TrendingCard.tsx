@@ -1,6 +1,14 @@
 import React from 'react';
+type TrendingCardProps = {
+  data: {
+    name: string;
+    price: string;
+    // add any other properties of data here
+  };
+};
 
-function TrendingCard({data}) {
+
+function TrendingCard({data}: TrendingCardProps) {
   return (
     <div className=" relative w-[380px] border border-gray-300 rounded-lg overflow-hidden shadow-lg">
       <img

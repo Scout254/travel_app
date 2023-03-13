@@ -1,6 +1,11 @@
 import React from 'react';
-
-function DestinationCard({ data }) {
+type DestinationCardProps={
+  data:{
+    name:string;
+  image:string;
+  }
+}
+function DestinationCard({ data }:DestinationCardProps) {
   return (
     <div className="relative w-[320px]">
       <img src={data.image} alt="" className="h-72 object-cover" />
