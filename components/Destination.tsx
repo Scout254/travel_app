@@ -6,44 +6,47 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 function Destination() {
   const { featured } = data;
-  const containerRef = useRef(null);
-    const [canScrollBack, setCanScrollBack] = React.useState(false);
-    const [canScrollForward, setCanScrollForward] = React.useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [canScrollBack, setCanScrollBack] = useState(false);
+  const [canScrollForward, setCanScrollForward] = useState(true);
 
-    const handleScrollBack = () => {
-        containerRef.current.scrollBy({
-          left: -300,
-          behavior: 'smooth',
-        });
-      };
-    
-      const handleScrollForward = () => {
-        containerRef.current.scrollBy({
-          left: 300,
-          behavior: 'smooth',
-        });
+  const handleScrollBack = () => {
+    const container = containerRef.current as HTMLDivElement;
+    container.scrollBy({
+      left: -300,
+      behavior: 'smooth',
+    });
+  };
+
+  const handleScrollForward = () => {
+    const container = containerRef.current as HTMLDivElement;
+    container.scrollBy({
+      left: 300,
+      behavior: 'smooth',
+    });
+  };
+
+  useEffect(() => {
+    const container = containerRef.current as HTMLDivElement;
+    const handleScroll = () => {
+      if (container.scrollLeft <= 0) {
+        setCanScrollBack(false);
+      } else {
+        setCanScrollBack(true);
       }
-      useEffect(() => {
-        const container = containerRef.current;
-        const handleScroll = () => {
-          if (container.scrollLeft <= 0) {
-            setCanScrollBack(false);
-          } else {
-            setCanScrollBack(true);
-          }
-          if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
-            setCanScrollForward(false);
-          } else {
-            setCanScrollForward(true);
-          }
-        };
-    
-        container.addEventListener('scroll', handleScroll);
-    
-        return () => {
-          container.removeEventListener('scroll', handleScroll);
-        };
-      }, []);
+      if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
+        setCanScrollForward(false);
+      } else {
+        setCanScrollForward(true);
+      }
+    };
+
+    container.addEventListener('scroll', handleScroll);
+
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <div>
